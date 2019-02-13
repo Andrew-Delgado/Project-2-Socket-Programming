@@ -1,3 +1,5 @@
+//Andrew Delgado
+//Christian Baiza
 // Client side C/C++ program to demonstrate Socket programming 
 #include <stdio.h> 
 #include <sys/socket.h> 
