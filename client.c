@@ -36,12 +36,14 @@ int main(int argc, char const *argv[])
 		printf("\nConnection Failed \n"); 
 		return -1; 
 	} 
-
-	//scanf("%99[^\n]", message);	
-
+	
+	while(1)
+{
 	gets(message);
 	send(sock , message , strlen(message) , 0 ); 
 	valread = read( sock , buffer, 1024); 
 	printf("server: %s\n",buffer ); 
+
+}
 	return 0; 
 }
