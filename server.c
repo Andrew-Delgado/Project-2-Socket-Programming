@@ -52,12 +52,13 @@ int main(int argc, char const *argv[])
 		exit(EXIT_FAILURE); 
 	} 
 
+	while(1)
+	{
 	valread = read( new_socket , buffer, 1024); 
-	printf("client: %s\n",buffer ); 
-
-	//scanf("%99[^\n]", message);	
+	printf("client: %s\n",buffer ); 	
     
 	gets(message);
 	send(new_socket , message , strlen(message) , 0 ); 
+	}
 	return 0; 
 } 
