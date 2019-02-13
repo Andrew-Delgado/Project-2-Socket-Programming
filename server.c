@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
 	int opt = 1; 
 	int addrlen = sizeof(address); 
 	char buffer[1024] = {0}; 
-	char *hello = "Hello from server"; 
+	char message[100]; 
 	
 	// Creating socket file descriptor 
 	if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) 
@@ -51,9 +51,13 @@ int main(int argc, char const *argv[])
 		perror("accept"); 
 		exit(EXIT_FAILURE); 
 	} 
+
 	valread = read( new_socket , buffer, 1024); 
-	printf("%s\n",buffer ); 
-	send(new_socket , hello , strlen(hello) , 0 ); 
-	printf("Hello message sent\n"); 
+	printf("client: %s\n",buffer ); 
+
+	//scanf("%99[^\n]", message);	
+    
+	gets(message);
+	send(new_socket , message , strlen(message) , 0 ); 
 	return 0; 
 } 
