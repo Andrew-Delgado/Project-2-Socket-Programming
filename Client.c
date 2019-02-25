@@ -1,6 +1,15 @@
-//Andrew Delgado
-//Christian Baiza
-// Client side C/C++ program to demonstrate Socket programming
+/**
+ * @author Andrew Delgado and Christian Baiza
+ * @date 2-24-2019
+ * @version 1.0
+ * 
+ * This program acts as a client to receive and send messages to a Server(Server.c).
+ * This achieved by connecting to port 8080 with the IP address of 127.0.0.1.
+ * Once the client connects to the server the client must send the first message.
+ * 	The message is then displayed in the terminal and then each program must take turns
+ * 	sending messages.
+ * 
+ */
 #include <stdio.h>
 #include <sys/socket.h>
 #include <stdlib.h>
@@ -39,28 +48,22 @@ int main(int argc, char const *argv[])
 		return -1;
 	}
 
-	while(1)
-{
-	//printf("\nclientMessage length - %ld\n", strlen(clientMessage));
-	if(strlen(clientMessage)> 0)
+	while(1)//This is an infinite loop that keeps the chat indefinitely open
 	{
-		memset(clientMessage, 0, sizeof(clientMessage));
-		memset(buffer, 0, sizeof(buffer));
+		if(strlen(clientMessage)> 0)
+		{
+			memset(clientMessage, 0, sizeof(clientMessage));
+			memset(buffer, 0, sizeof(buffer));
+		}
+		
+		printf("Enter Message: ");
+		fgets(clientMessage, 200,stdin);
+		send(sock , clientMessage , strlen(clientMessage) , 0 );
+
+		valread = read( sock , buffer, 1024);
+		printf("server: %s\n",buffer );
 	}
-	//printf("clientMessage length - %ld\n", strlen(clientMessage));
-	//printf("clientMessage length - %ld\n", strlen(clientMessage));
-	//printf("buffer length - %ld\n", strlen(buffer));
-  printf("Enter Message: ");
-	fgets(clientMessage, 200,stdin);
-	send(sock , clientMessage , strlen(clientMessage) , 0 );
 
-	//memset(clientMessage, 0, sizeof(clientMessage));
-
-
-	valread = read( sock , buffer, 1024);
-	printf("server: %s\n",buffer );
-
-}
 	return 0;
 }
 

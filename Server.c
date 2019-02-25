@@ -1,4 +1,16 @@
-// Server side C/C++ program to demonstrate Socket programming
+/**
+ * @author Andrew Delgado and Christian Baiza
+ * @date 2-24-2019
+ * @version 1.0
+ * 
+ * This program acts as a server to receive and send messages to a client(Client.c).
+ * This achieved by setting up a socket with the port 8080,
+ * 	the program then waits and listens for a client trying to connect.
+ * Once the client connects to the server it waits for the client to send the first message,
+ * 	the message is then displayed in the terminal and then each program must take turns
+ * 	sending messages.
+ * 
+ */
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/socket.h>
@@ -6,6 +18,8 @@
 #include <netinet/in.h>
 #include <string.h>
 #define PORT 8080
+
+
 int main(int argc, char const *argv[])
 {
 	int server_fd, new_socket, valread;
@@ -52,28 +66,22 @@ int main(int argc, char const *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	while(1)
+	while(1)//This is an infinite loop that keeps the chat indefinitely open
 	{
-	//printf("\nserverMessage length - %ld\n", strlen(serverMessage));
-	if(strlen(serverMessage)> 0)
-	{
-		memset(serverMessage, 0, sizeof(serverMessage));
-		memset(buffer, 0, sizeof(buffer));
-	}
-	//printf("serverMessage length - %ld\n", strlen(serverMessage));
 
-	valread = read( new_socket , buffer, 1024);
-	printf("client: %s\n",buffer );
+		//clears the buffer
+		if(strlen(serverMessage)> 0)
+		{
+			memset(serverMessage, 0, sizeof(serverMessage));
+			memset(buffer, 0, sizeof(buffer));
+		}
 
-	// printf("serverMessage length - %ld\n", strlen(serverMessage));
-	// printf("buffer length - %ld\n", strlen(buffer));
-  printf("Enter Message: ");
-	fgets(serverMessage, 200,stdin);
-	send(new_socket , serverMessage , strlen(serverMessage) , 0 );
+		valread = read( new_socket , buffer, 1024);
+		printf("client: %s\n",buffer );
 
-	//memset(serverMessage, 0, sizeof(serverMessage));
-
-
+		printf("Enter Message: ");
+		fgets(serverMessage, 200,stdin);
+		send(new_socket , serverMessage , strlen(serverMessage) , 0 );
 	}
 	return 0;
 }
