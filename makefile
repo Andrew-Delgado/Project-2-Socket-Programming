@@ -10,16 +10,17 @@ B = Server.o
 Client: $A
 	$(CC1) -o Client $A
 
-Client.o: client.c
-	$(CC1) -c client.c
+Client.o: Client.c
+	$(CC1) -c Client.c
 
 Server: $B
 	$(CC1) -o Server $B
 
-Server.o: server.c
-	$(CC1) -c server.c
+Server.o: Server.c
+	$(CC1) -c Server.c
 
 clean:
 	rm *.o
 	rm Server
 	rm Client
+
